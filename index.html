@@ -74,30 +74,36 @@
     <article id="post-java安全学习-反射机制" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2021/11/16/java%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/" class="article-date">
-  <time class="dt-published" datetime="2021-11-16T08:18:50.000Z" itemprop="datePublished">2021-11-16</time>
+  <time class="dt-published" datetime="2021-11-16T08:18:50.720Z" itemprop="datePublished">2021-11-16</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/16/java%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/">java安全学习-反射机制</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <hr>
+<h2 id="java安全学习-反射机制"><a href="#java安全学习-反射机制" class="headerlink" title="java安全学习-反射机制"></a>java安全学习-反射机制</h2><p>对于java中的任意一个类，通过反射机制，我们能够获取类的属性/方法，也可以调用对象的任意包括私有在内的属性/方法，可以了解到，java反射机制是十分强大的，在漏洞利用中发挥重要作用。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p>java实现反射机制的原理，使用示例类的代码来分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   class test&#123;</span><br><span class="line">    private int a;</span><br><span class="line">    private int b;</span><br><span class="line">    private String c;</span><br><span class="line">    private double  weight;</span><br><span class="line"></span><br><span class="line">    public String getc() &#123;</span><br><span class="line">        return c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setc(String c) &#123;</span><br><span class="line">        this.c = c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>如果要获得类的实例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class c = Class.forName(&quot;com.xxx.Test&quot;);</span><br><span class="line">Class c = com.xxx.Test.class;</span><br><span class="line">Class c = (new User()).getClass();</span><br></pre></td></tr></table></figure>
+
+<p>然后通过Class类的实例来调用方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method method = c.getMethod(&quot;setc&quot;, String.class);</span><br></pre></td></tr></table></figure>
+
+
+<p>给method对象的invoke方法传入对应的参数来调用原始方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Test t = new T();</span><br><span class="line">method.invoke(t, &quot;test&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>其中,invoke方法的第一个参数决定了要调用本方法的对象，第二个则是参数。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/16/java%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/" data-id="ckw1vitqy0000nw144h9rfl7e" data-title="java安全学习-反射机制" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/16/java%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/" data-id="ckw1vitqy0000nw144h9rfl7e" data-title="" class="article-share-link">Share</a>
       
       
       
@@ -140,7 +146,7 @@
       <ul>
         
           <li>
-            <a href="/2021/11/16/java%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/">java安全学习-反射机制</a>
+            <a href="/2021/11/16/java%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/">(no title)</a>
           </li>
         
       </ul>
